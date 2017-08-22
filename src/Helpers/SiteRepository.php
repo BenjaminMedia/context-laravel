@@ -42,11 +42,15 @@ class SiteRepository
      * @param $brandUrl
      * @return BpSite|null
      */
-    public function findByLoginDomain($brandUrl)
+    public function findByDomain($brandUrl)
     {
-        $result = $this->service->findByLoginDomain($brandUrl);
-        if($result) {
-            return new BpSite($result);
+        $loginDomainResult = $this->service->findByLoginDomain($brandUrl);
+        if($loginDomainResult) {
+            return new BpSite($loginDomainResult);
+        }
+        $domainResult = $this->service->findByDomain($brandUrl);
+        if($domainResult) {
+            return new BpSite($domainResult);
         }
         return null;
     }

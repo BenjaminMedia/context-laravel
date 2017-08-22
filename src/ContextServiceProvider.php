@@ -18,7 +18,7 @@ class ContextServiceProvider extends ServiceProvider
      */
     public function boot(Request $request, SiteRepository $siteRepository)
     {
-        $site = $siteRepository->findByLoginDomain($request->getHost());
+        $site = $siteRepository->findByDomain($request->getHost());
         $context = new Context($site);
 
         $this->app->singleton(Context::class, function () use($context) {
