@@ -49,6 +49,11 @@ class Context
         return $this->site->getDomain();
     }
 
+    public function getLanguage()
+    {
+        return $this->site->getLanguage();
+    }
+
     public function getLocale() {
         return $this->site->getLocale();
     }
@@ -66,6 +71,11 @@ class Context
             $this->getDomain(),
             $this->site->isSecure()
         );
+    }
+
+    public function getTranslationNamespace()
+    {
+        return 'bonnier::'.$this->getAppCode().'/'.$this->getBrandCode().'/messages.';
     }
 
     public function getPrimaryColor() {

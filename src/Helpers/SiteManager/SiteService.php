@@ -20,19 +20,28 @@ class SiteService
         ]);
     }
 
-    public function all() {
+    public function all()
+    {
         return $this->get('/api/v1/sites');
     }
 
-    public function find($id) {
+    public function find($id)
+    {
         return $this->get('/api/v1/sites/' . $id);
     }
 
-    public function findByLoginDomain($loginDomain) {
-        return $this->get('/api/v1/sites/login-domain/' . $loginDomain);
+    public function findByDomain($domain)
+    {
+        return $this->get('/api/v1/sites/domain/'.$domain);
     }
 
-    private function get($uri) {
+    public function findByLoginDomain($loginDomain)
+    {
+        return $this->get('/api/v1/sites/login-domain/'.$loginDomain);
+    }
+
+    private function get($uri)
+    {
         try {
             return json_decode($this->client->get($uri)->getBody());
         } catch (\Exception $e) {
