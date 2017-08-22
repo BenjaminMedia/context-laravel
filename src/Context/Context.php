@@ -2,26 +2,26 @@
 
 namespace Bonnier\ContextService\Context;
 
-use App\BpApp;
-use App\BpBrand;
-use Bonnier\Shell\ShellResponse;
+use Bonnier\ContextService\Models\BpApp;
+use Bonnier\ContextService\Models\BpBrand;
+use Bonnier\ContextService\Models\BpSite;
 
 class Context
 {
+    /** @var BpSite|null */
     protected $site;
 
     /**
      * Context constructor.
      *
-     * @param null          $site
-     * @param ShellResponse $shell
+     * @param BpSite|null $site
      */
-    public function __construct($site = null)
+    public function __construct(BpSite $site = null)
     {
         $this->site = $site;
     }
 
-    public function setSite($site)
+    public function setSite(BpSite $site)
     {
         $this->site = $site;
     }
@@ -31,7 +31,7 @@ class Context
      */
     public function getApp()
     {
-        return $this->site->app ?? null;
+        return $this->site->getApp();
     }
 
     /**
@@ -39,69 +39,61 @@ class Context
      */
     public function getBrand()
     {
-        return $this->site->brand ?? null;
-    }
-
-    /**
-     * @return ShellResponse
-     */
-    public function getShell()
-    {
-        return $this->shell ?? null;
+        return $this->site->getBrand();
     }
 
     /**
      * @return mixed
      */
     public function getDomain() {
-        return $this->site->domain ?? null;
+        return $this->site->getDomain();
     }
 
     public function getLocale() {
-        return $this->site->locale ?? null;
+        return $this->site->getLocale();
     }
 
     public function getBrandCode() {
-        return $this->getBrand()->brand_code ?? null;
+        return $this->getBrand()->getCode();
     }
 
     public function getAppCode() {
-        return $this->getApp()->app_code ?? null;
+        return $this->getApp()->getCode();
     }
 
     public function getDomainUrl() {
         return $this->addHttpToUrlWhenMissing(
             $this->getDomain(),
-            $this->site->is_secure ?? false
+            $this->site->isSecure()
         );
     }
 
     public function getPrimaryColor() {
-        return $this->getBrand()->primary_color ?? null;
+        return $this->getBrand()->getPrimaryColor();
     }
 
     public function getSecondaryColor() {
-        return $this->getBrand()->secondary_color ?? null;
+        return $this->getBrand()->getSecondaryColor();
     }
 
     public function getTertiaryColor() {
-        return $this->getBrand()->tertiary_color ?? null;
+        return $this->getBrand()->getTertiaryColor();
     }
 
     public function getLogo() {
-        return $this->getBrand()->logo_url ?? null;
+        return $this->getBrand()->getLogoUrl();
     }
 
     public function whiteLogoBackground() {
-        return $this->getBrand()->logo_bg_color_white ?? null;
+        return $this->getBrand()->isLogoBgColorWhite();
     }
 
     public function usesFacebook() {
-        return isset($this->site->facebook_id, $this->site->facebook_secret);
+        return $this->site->getFacebookId() && $this->site->getFacebookSecret();
     }
 
     public function getSignUpPermission() {
-        return $this->site->signup_lead_permission ?? null;
+        return $this->site->getSignupLeadPermission();
     }
 
     /**
@@ -116,87 +108,5 @@ class Context
             if (!isset($ret["scheme"])) { $url = "http" . ($secure ? "s" : "") . "://{$url}"; }
         }
         return $url;
-    }
-}
-
-class NullShellResponse extends ShellResponse {
-
-    public function __construct()
-    {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getStartTag()
-    {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getHead()
-    {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getBody()
-    {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getHeader()
-    {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getFooter()
-    {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getEndTag()
-    {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getBanners()
-    {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getHttpResponse()
-    {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLogos()
-    {
-        $logos = new \stdClass();
-        $logos->logo_standard = '';
-        $logos->logo_unicolor_white = '';
-        return '';
     }
 }

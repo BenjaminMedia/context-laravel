@@ -28,14 +28,14 @@ class ContextServiceProvider extends ServiceProvider
         View::share('context', $context);
 
         if($site && !defined('PHPUNIT_RUNNING')) {
-            config(['app.name' => $site->name]);
-            config(['session.domain' => $site->login_domain]);
-            config(['app.url' => $site->domain]);
-            config(['mail.from.name' => $site->brand->name, 'mail.from.address' => $site->brand->mail_from_address]);
-            config(['services.facebook.redirect' => ($site->is_secure ? 'https://' : 'http://') . rtrim($site->login_domain, '/') . '/facebook/callback']);
-            config(['services.facebook.client_id' => $site->facebook_id]);
-            config(['services.facebook.client_secret' => $site->facebook_secret]);
-            app()->setLocale($site->locale);
+            config(['app.name' => $site->getName()]);
+            config(['session.domain' => $site->getLoginDomain()]);
+            config(['app.url' => $site->getDomain()]);
+            config(['mail.from.name' => $site->getBrand()->getName(), 'mail.from.address' => $site->getBrand()->getMailFromAddress()]);
+            config(['services.facebook.redirect' => ($site->isSecure() ? 'https://' : 'http://') . rtrim($site->getLoginDomain(), '/') . '/facebook/callback']);
+            config(['services.facebook.client_id' => $site->getFacebookId()]);
+            config(['services.facebook.client_secret' => $site->getFacebookSecret()]);
+            app()->setLocale($site->getLocale());
         }
 
     }
