@@ -3,6 +3,7 @@
 namespace Bonnier\ContextService\Helpers;
 
 use Bonnier\ContextService\Helpers\SiteManager\SiteService;
+use Bonnier\ContextService\Models\BpSite;
 
 class SiteRepository
 {
@@ -10,7 +11,6 @@ class SiteRepository
 
     function __construct()
     {
-        // Todo: move this implementation to Bonnier PHP SDK
         $this->service = new SiteService(config('services.site_manager.host'));
     }
 
@@ -40,10 +40,14 @@ class SiteRepository
      * Get a client by the given ID.
      *
      * @param $brandUrl
-     * @return \stdClass|null
+     * @return BpSite|null
      */
     public function findByLoginDomain($brandUrl)
     {
-        return $this->service->findByLoginDomain($brandUrl);
+        $result = $this->service->findByLoginDomain($brandUrl);
+        if($result) {
+            return new BpSite($result);
+        }
+        return null;
     }
 }
