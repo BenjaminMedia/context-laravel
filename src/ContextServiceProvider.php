@@ -5,27 +5,30 @@ namespace Bonnier\ContextService;
 use Bonnier\ContextService\Context\Context;
 use Bonnier\ContextService\Helpers\SiteRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class ContextServiceProvider extends ServiceProvider
 {
+    private $context;
     /**
      * Bootstrap any application services.
      *
      * @param \Illuminate\Http\Request $request
      * @param SiteRepository $siteRepository
      */
+
     public function boot(Request $request, SiteRepository $siteRepository)
     {
         $site = $siteRepository->findByDomain($request->getHost());
-        $context = new Context($site);
+        $this->context = new Context($site);
 
-        $this->app->singleton(Context::class, function () use($context) {
-            return $context;
+        $this->app->singleton(Context::class, function () {
+            return $this->context;
         });
 
-        View::share('context', $context);
+        $this->prepareView();
 
         if($site && !defined('PHPUNIT_RUNNING')) {
             config(['app.name' => $site->getName()]);
@@ -37,6 +40,19 @@ class ContextServiceProvider extends ServiceProvider
             config(['services.facebook.client_secret' => $site->getFacebookSecret()]);
             app()->setLocale($site->getLocale());
         }
+    }
 
+    private function prepareView()
+    {
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'bpContext');
+        View::share('bpContext', $this->context);
+
+        Blade::directive('prod', function () {
+            return "<?php if (config('app.env') == 'production'): ?>";
+        });
+
+        Blade::directive('endprod', function () {
+            return "<?php endif; ?>";
+        });
     }
 }
