@@ -31,7 +31,7 @@ class Context
      */
     public function getApp()
     {
-        return $this->site->getApp() ?? null;
+        return $this->site ? $this->site->getApp() : null;
     }
 
     /**
@@ -39,31 +39,31 @@ class Context
      */
     public function getBrand()
     {
-        return $this->site->getBrand() ?? null;
+        return $this->site ? $this->site->getBrand() : null;
     }
 
     /**
      * @return mixed
      */
     public function getDomain() {
-        return $this->site->getDomain() ?? null;
+        return $this->site ? $this->site->getDomain() : null;
     }
 
     public function getLanguage()
     {
-        return $this->site->getLanguage() ?? null;
+        return $this->site ? $this->site->getLanguage() : null;
     }
 
     public function getLocale() {
-        return $this->site->getLocale() ?? null;
+        return $this->site ? $this->site->getLocale() : null;
     }
 
     public function getBrandCode() {
-        return $this->getBrand()->getCode() ?? null;
+        return $this->site ? $this->getBrand()->getCode() : null;
     }
 
     public function getAppCode() {
-        return $this->getApp()->getCode() ?? null;
+        return $this->site ? $this->getApp()->getCode() : null;
     }
 
     public function getDomainUrl() {
@@ -87,23 +87,23 @@ class Context
     }
 
     public function getPrimaryColor() {
-        return $this->getBrand()->getPrimaryColor() ?? null;
+        return $this->site ? $this->getBrand()->getPrimaryColor() : null;
     }
 
     public function getSecondaryColor() {
-        return $this->getBrand()->getSecondaryColor() ?? null;
+        return $this->site ? $this->getBrand()->getSecondaryColor() : null;
     }
 
     public function getTertiaryColor() {
-        return $this->getBrand()->getTertiaryColor() ?? null;
+        return $this->site ? $this->getBrand()->getTertiaryColor() : null;
     }
 
     public function getLogo() {
-        return $this->getBrand()->getLogoUrl() ?? null;
+        return $this->site ? $this->getBrand()->getLogoUrl() : null;
     }
 
     public function whiteLogoBackground() {
-        return $this->getBrand()->isLogoBgColorWhite() ?? null;
+        return $this->site ? $this->getBrand()->isLogoBgColorWhite() : null;
     }
 
     public function usesFacebook() {
@@ -111,7 +111,7 @@ class Context
     }
 
     public function getSignUpPermission() {
-        return $this->site->getSignupLeadPermission() ?? null;
+        return $this->site ? $this->site->getSignupLeadPermission() : null;
     }
 
     /**
