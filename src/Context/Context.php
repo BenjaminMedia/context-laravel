@@ -31,7 +31,7 @@ class Context
      */
     public function getApp()
     {
-        return $this->site->getApp();
+        return $this->site->getApp() ?? null;
     }
 
     /**
@@ -39,63 +39,71 @@ class Context
      */
     public function getBrand()
     {
-        return $this->site->getBrand();
+        return $this->site->getBrand() ?? null;
     }
 
     /**
      * @return mixed
      */
     public function getDomain() {
-        return $this->site->getDomain();
+        return $this->site->getDomain() ?? null;
     }
 
     public function getLanguage()
     {
-        return $this->site->getLanguage();
+        return $this->site->getLanguage() ?? null;
     }
 
     public function getLocale() {
-        return $this->site->getLocale();
+        return $this->site->getLocale() ?? null;
     }
 
     public function getBrandCode() {
-        return $this->getBrand()->getCode();
+        return $this->getBrand()->getCode() ?? null;
     }
 
     public function getAppCode() {
-        return $this->getApp()->getCode();
+        return $this->getApp()->getCode() ?? null;
     }
 
     public function getDomainUrl() {
-        return $this->addHttpToUrlWhenMissing(
-            $this->getDomain(),
-            $this->site->isSecure()
-        );
+        if($this->getDomain()) {
+            return $this->addHttpToUrlWhenMissing(
+                $this->getDomain(),
+                $this->site->isSecure()
+            );
+        }
+
+        return null;
     }
 
     public function getTranslationNamespace()
     {
-        return 'bonnier::'.$this->getAppCode().'/'.$this->getBrandCode().'/messages.';
+        if($this->getAppCode() && $this->getBrandCode()) {
+            return 'bonnier::'.$this->getAppCode().'/'.$this->getBrandCode().'/messages.';
+        }
+
+        return null;
     }
 
     public function getPrimaryColor() {
-        return $this->getBrand()->getPrimaryColor();
+        return $this->getBrand()->getPrimaryColor() ?? null;
     }
 
     public function getSecondaryColor() {
-        return $this->getBrand()->getSecondaryColor();
+        return $this->getBrand()->getSecondaryColor() ?? null;
     }
 
     public function getTertiaryColor() {
-        return $this->getBrand()->getTertiaryColor();
+        return $this->getBrand()->getTertiaryColor() ?? null;
     }
 
     public function getLogo() {
-        return $this->getBrand()->getLogoUrl();
+        return $this->getBrand()->getLogoUrl() ?? null;
     }
 
     public function whiteLogoBackground() {
-        return $this->getBrand()->isLogoBgColorWhite();
+        return $this->getBrand()->isLogoBgColorWhite() ?? null;
     }
 
     public function usesFacebook() {
@@ -103,7 +111,7 @@ class Context
     }
 
     public function getSignUpPermission() {
-        return $this->site->getSignupLeadPermission();
+        return $this->site->getSignupLeadPermission() ?? null;
     }
 
     /**
