@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Cache;
 
 class SiteRepository
 {
-    const CACHE_EXPIRES = 1440; // 24 hours in minutes
+    const CACHE_TAG = 'bonnier.context';
+    private $cache_expires;
     protected $service;
 
     function __construct()
     {
+        $this->cache_expires = 1440; // 24 hours in minutes
         $this->service = new SiteService(config('services.site_manager.host'));
     }
 
@@ -23,7 +25,7 @@ class SiteRepository
      */
     public function all()
     {
-        return Cache::remember('bonnier-siterepository', static::CACHE_EXPIRES, function(){
+        return Cache::tags(static::CACHE_TAG)->remember('bonnier-siterepository', $this->cache_expires, function(){
             return $this->service->all();
         });
     }
@@ -36,7 +38,7 @@ class SiteRepository
      */
     public function find($id)
     {
-        $site = Cache::remember(hash('md5', 'site-id-'.$id), static::CACHE_EXPIRES, function() use($id) {
+        $site = Cache::tags(static::CACHE_TAG)->remember(hash('md5', 'site-id-'.$id), $this->cache_expires, function() use($id) {
             return $this->service->find($id);
         });
 
@@ -55,7 +57,7 @@ class SiteRepository
      */
     public function findByDomain($brandUrl)
     {
-        $site = Cache::remember(hash('md5', 'site-domain-'.$brandUrl), static::CACHE_EXPIRES, function() use($brandUrl) {
+        $site = Cache::tags(static::CACHE_TAG)->remember(hash('md5', 'site-domain-'.$brandUrl), $this->cache_expires, function() use($brandUrl) {
             $loginDomainResult = $this->service->findByLoginDomain($brandUrl);
             if($loginDomainResult) {
                 return $loginDomainResult;
