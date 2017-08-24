@@ -4,9 +4,11 @@ namespace Bonnier\ContextService\Helpers;
 
 use Bonnier\ContextService\Helpers\SiteManager\SiteService;
 use Bonnier\ContextService\Models\BpSite;
+use Illuminate\Support\Facades\Cache;
 
 class SiteRepository
 {
+    const CACHE_EXPIRES = 1440; // 24 hours in minutes
     protected $service;
 
     function __construct()
@@ -21,7 +23,9 @@ class SiteRepository
      */
     public function all()
     {
-        return $this->service->all();
+        return Cache::remember('bonnier-siterepository', static::CACHE_EXPIRES, function(){
+            return $this->service->all();
+        });
     }
 
     /**
@@ -32,12 +36,15 @@ class SiteRepository
      */
     public function find($id)
     {
-    	$site = $this->service->find($id);
-    	if($site) {
-    		return new BpSite($site);
-    	}
+        $site = Cache::remember(hash('md5', 'site-id-'.$id), static::CACHE_EXPIRES, function() use($id) {
+            return $this->service->find($id);
+        });
 
-    	return null;
+        if($site) {
+            return new BpSite($site);
+        }
+
+        return null;
     }
 
     /**
@@ -48,14 +55,18 @@ class SiteRepository
      */
     public function findByDomain($brandUrl)
     {
-        $loginDomainResult = $this->service->findByLoginDomain($brandUrl);
-        if($loginDomainResult) {
-            return new BpSite($loginDomainResult);
+        $site = Cache::remember(hash('md5', 'site-domain-'.$brandUrl), static::CACHE_EXPIRES, function() use($brandUrl) {
+            $loginDomainResult = $this->service->findByLoginDomain($brandUrl);
+            if($loginDomainResult) {
+                return $loginDomainResult;
+            }
+            return $this->service->findByDomain($brandUrl);
+        });
+
+        if($site) {
+            return new BpSite($site);
         }
-        $domainResult = $this->service->findByDomain($brandUrl);
-        if($domainResult) {
-            return new BpSite($domainResult);
-        }
+
         return null;
     }
 }
