@@ -14,7 +14,6 @@ class SiteRepository
         $this->service = new SiteService(config('services.site_manager.host'));
     }
 
-
     /**
      * Get all brands
      *
@@ -26,14 +25,19 @@ class SiteRepository
     }
 
     /**
-     * Get a client by the given ID.
+     * Get a site by the given ID.
      *
      * @param  int  $id
-     * @return BpBrand|null
+     * @return BpSite|null
      */
     public function find($id)
     {
-        return $this->service->find($id);
+    	$site = $this->service->find($id);
+    	if($site) {
+    		return new BpSite($site);
+    	}
+
+    	return null;
     }
 
     /**
