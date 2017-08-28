@@ -24,6 +24,16 @@ class Context
     public function setSite(BpSite $site)
     {
         $this->site = $site;
+        if($this->site) {
+            config(['app.name' => $this->site->getName()]);
+            config(['session.domain' => $this->site->getLoginDomain()]);
+            config(['app.url' => $this->site->getDomain()]);
+            config(['mail.from.name' => $this->site->getBrand()->getName(), 'mail.from.address' => $this->site->getBrand()->getMailFromAddress()]);
+            config(['services.facebook.redirect' => ($this->site->isSecure() ? 'https://' : 'http://') . rtrim($this->site->getLoginDomain(), '/') . '/facebook/callback']);
+            config(['services.facebook.client_id' => $this->site->getFacebookId()]);
+            config(['services.facebook.client_secret' => $this->site->getFacebookSecret()]);
+            app()->setLocale($this->site->getLocale());
+        }
     }
 
     /**
