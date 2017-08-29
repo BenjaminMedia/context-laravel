@@ -27,7 +27,7 @@ class BpApp
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -37,7 +37,7 @@ class BpApp
      *
      * @return BpApp
      */
-    public function setId(int $id): BpApp
+    public function setId(int $id)
     {
         $this->id = $id;
         return $this;
@@ -46,7 +46,7 @@ class BpApp
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -56,7 +56,7 @@ class BpApp
      *
      * @return BpApp
      */
-    public function setName(string $name): BpApp
+    public function setName(string $name)
     {
         $this->name = $name;
         return $this;
@@ -65,7 +65,7 @@ class BpApp
     /**
      * @return string
      */
-    public function getCode(): string
+    public function getCode()
     {
         return $this->code;
     }
@@ -75,7 +75,7 @@ class BpApp
      *
      * @return BpApp
      */
-    public function setCode(string $code): BpApp
+    public function setCode(string $code)
     {
         $this->code = $code;
         return $this;
