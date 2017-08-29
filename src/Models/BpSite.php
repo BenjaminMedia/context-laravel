@@ -89,7 +89,7 @@ class BpSite
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -99,7 +99,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setId(int $id): BpSite
+    public function setId(int $id)
     {
         $this->id = $id;
         return $this;
@@ -108,7 +108,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -118,7 +118,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setName(string $name): BpSite
+    public function setName(string $name)
     {
         $this->name = $name;
         return $this;
@@ -127,7 +127,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getDomain(): string
+    public function getDomain()
     {
         return $this->domain;
     }
@@ -137,7 +137,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setDomain(string $domain): BpSite
+    public function setDomain(string $domain)
     {
         $this->domain = $domain;
         return $this;
@@ -146,7 +146,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getLoginDomain(): string
+    public function getLoginDomain()
     {
         return $this->loginDomain;
     }
@@ -156,7 +156,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setLoginDomain(string $loginDomain): BpSite
+    public function setLoginDomain(string $loginDomain)
     {
         $this->loginDomain = $loginDomain;
         return $this;
@@ -165,7 +165,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getLanguage(): string
+    public function getLanguage()
     {
         return $this->language;
     }
@@ -175,7 +175,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setLanguage(string $language): BpSite
+    public function setLanguage(string $language)
     {
         $this->language = $language;
         return $this;
@@ -184,7 +184,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getLocale(): string
+    public function getLocale()
     {
         return $this->locale;
     }
@@ -194,7 +194,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setLocale(string $locale): BpSite
+    public function setLocale(string $locale)
     {
         $this->locale = $locale;
         return $this;
@@ -203,7 +203,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getShellUrl(): string
+    public function getShellUrl()
     {
         return $this->shellUrl;
     }
@@ -213,7 +213,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setShellUrl(string $shellUrl): BpSite
+    public function setShellUrl(string $shellUrl)
     {
         $this->shellUrl = $shellUrl;
         return $this;
@@ -222,7 +222,7 @@ class BpSite
     /**
      * @return \DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -232,7 +232,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setCreatedAt(\DateTime $createdAt): BpSite
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
@@ -241,7 +241,7 @@ class BpSite
     /**
      * @return \DateTime
      */
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -251,7 +251,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setUpdatedAt(\DateTime $updatedAt): BpSite
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
@@ -260,7 +260,7 @@ class BpSite
     /**
      * @return bool
      */
-    public function isSecure(): bool
+    public function isSecure()
     {
         return $this->isSecure;
     }
@@ -270,7 +270,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setIsSecure(bool $isSecure): BpSite
+    public function setIsSecure(bool $isSecure)
     {
         $this->isSecure = $isSecure;
         return $this;
@@ -279,7 +279,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getCxenseSiteId(): string
+    public function getCxenseSiteId()
     {
         return $this->cxenseSiteId;
     }
@@ -289,7 +289,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setCxenseSiteId(string $cxenseSiteId): BpSite
+    public function setCxenseSiteId(string $cxenseSiteId)
     {
         $this->cxenseSiteId = $cxenseSiteId;
         return $this;
@@ -298,7 +298,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getFacebookId(): string
+    public function getFacebookId()
     {
         return $this->facebookId;
     }
@@ -308,7 +308,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setFacebookId(string $facebookId): BpSite
+    public function setFacebookId(string $facebookId)
     {
         $this->facebookId = $facebookId;
         return $this;
@@ -317,7 +317,7 @@ class BpSite
     /**
      * @return string
      */
-    public function getFacebookSecret(): string
+    public function getFacebookSecret()
     {
         return $this->facebookSecret;
     }
@@ -327,7 +327,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setFacebookSecret(string $facebookSecret): BpSite
+    public function setFacebookSecret(string $facebookSecret)
     {
         $this->facebookSecret = $facebookSecret;
         return $this;
@@ -355,7 +355,7 @@ class BpSite
     /**
      * @return BpApp
      */
-    public function getApp(): BpApp
+    public function getApp()
     {
         return $this->app;
     }
@@ -365,7 +365,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setApp(BpApp $app): BpSite
+    public function setApp(BpApp $app)
     {
         $this->app = $app;
         return $this;
@@ -374,7 +374,7 @@ class BpSite
     /**
      * @return BpBrand
      */
-    public function getBrand(): BpBrand
+    public function getBrand()
     {
         return $this->brand;
     }
@@ -384,7 +384,7 @@ class BpSite
      *
      * @return BpSite
      */
-    public function setBrand(BpBrand $brand): BpSite
+    public function setBrand(BpBrand $brand)
     {
         $this->brand = $brand;
         return $this;

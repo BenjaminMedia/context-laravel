@@ -59,7 +59,7 @@ class BpBrand
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -69,7 +69,7 @@ class BpBrand
      *
      * @return BpBrand
      */
-    public function setId(int $id): BpBrand
+    public function setId(int $id)
     {
         $this->id = $id;
         return $this;
@@ -78,7 +78,7 @@ class BpBrand
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -88,7 +88,7 @@ class BpBrand
      *
      * @return BpBrand
      */
-    public function setName(string $name): BpBrand
+    public function setName(string $name)
     {
         $this->name = $name;
         return $this;
@@ -97,7 +97,7 @@ class BpBrand
     /**
      * @return string
      */
-    public function getCode(): string
+    public function getCode()
     {
         return $this->code;
     }
@@ -107,7 +107,7 @@ class BpBrand
      *
      * @return BpBrand
      */
-    public function setCode(string $code): BpBrand
+    public function setCode(string $code)
     {
         $this->code = $code;
         return $this;
@@ -116,7 +116,7 @@ class BpBrand
     /**
      * @return string
      */
-    public function getMailFromAddress(): string
+    public function getMailFromAddress()
     {
         return $this->mailFromAddress;
     }
@@ -126,7 +126,7 @@ class BpBrand
      *
      * @return BpBrand
      */
-    public function setMailFromAddress(string $mailFromAddress): BpBrand
+    public function setMailFromAddress(string $mailFromAddress)
     {
         $this->mailFromAddress = $mailFromAddress;
         return $this;
@@ -135,7 +135,7 @@ class BpBrand
     /**
      * @return string
      */
-    public function getContentHubId(): string
+    public function getContentHubId()
     {
         return $this->contentHubId;
     }
@@ -145,7 +145,7 @@ class BpBrand
      *
      * @return BpBrand
      */
-    public function setContentHubId(string $contentHubId): BpBrand
+    public function setContentHubId(string $contentHubId)
     {
         $this->contentHubId = $contentHubId;
         return $this;
@@ -230,7 +230,7 @@ class BpBrand
     /**
      * @return bool
      */
-    public function isLogoBgColorWhite(): bool
+    public function isLogoBgColorWhite()
     {
         return $this->logoBgColorWhite;
     }
@@ -240,7 +240,7 @@ class BpBrand
      *
      * @return BpBrand
      */
-    public function setLogoBgColorWhite(bool $logoBgColorWhite): BpBrand
+    public function setLogoBgColorWhite(bool $logoBgColorWhite)
     {
         $this->logoBgColorWhite = $logoBgColorWhite;
         return $this;
@@ -249,7 +249,7 @@ class BpBrand
     /**
      * @return int
      */
-    public function getIssuesPerYear(): int
+    public function getIssuesPerYear()
     {
         return $this->issuesPerYear;
     }
@@ -259,7 +259,7 @@ class BpBrand
      *
      * @return BpBrand
      */
-    public function setIssuesPerYear(int $issuesPerYear): BpBrand
+    public function setIssuesPerYear(int $issuesPerYear)
     {
         $this->issuesPerYear = $issuesPerYear;
         return $this;
