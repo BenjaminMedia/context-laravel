@@ -36,6 +36,11 @@ class Context
         }
     }
 
+    public function getSite()
+    {
+    	return $this->site;
+    }
+
     /**
      * @return BpApp
      */
