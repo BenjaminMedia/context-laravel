@@ -39,6 +39,9 @@ class ContextServiceProvider extends ServiceProvider
             config(['services.facebook.client_id' => $site->getFacebookId()]);
             config(['services.facebook.client_secret' => $site->getFacebookSecret()]);
             app()->setLocale($site->getLocale());
+            if(method_exists(app('translator'), 'setBrandId')) {
+                app('translator')->setBrandId($site->getBrand()->getId());
+            }
         }
     }
 
