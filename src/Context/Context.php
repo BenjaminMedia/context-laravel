@@ -125,7 +125,7 @@ class Context
     }
 
     public function usesFacebook() {
-        return $this->site->getFacebookId() && $this->site->getFacebookSecret();
+        return $this->site ? $this->site->getFacebookId() && $this->site->getFacebookSecret() : null;
     }
 
     public function getSignUpPermission() {
