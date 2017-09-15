@@ -38,7 +38,7 @@ class ContextServiceProvider extends ServiceProvider
             config(['services.facebook.redirect' => ($site->isSecure() ? 'https://' : 'http://') . rtrim($site->getLoginDomain(), '/') . '/facebook/callback']);
             config(['services.facebook.client_id' => $site->getFacebookId()]);
             config(['services.facebook.client_secret' => $site->getFacebookSecret()]);
-            app()->setLocale($site->getLocale());
+            app()->setLocale($site->getLanguage());
             if(method_exists(app('translator'), 'setBrandId')) {
                 app('translator')->setBrandId($site->getBrand()->getId());
             }
