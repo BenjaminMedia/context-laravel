@@ -29,20 +29,6 @@ class ContextServiceProvider extends ServiceProvider
         });
 
         $this->prepareView();
-
-        if($site && !defined('PHPUNIT_RUNNING')) {
-            config(['app.name' => $site->getName()]);
-            config(['session.domain' => $site->getLoginDomain()]);
-            config(['app.url' => $site->getDomain()]);
-            config(['mail.from.name' => $site->getBrand()->getName(), 'mail.from.address' => $site->getBrand()->getMailFromAddress()]);
-            config(['services.facebook.redirect' => ($site->isSecure() ? 'https://' : 'http://') . rtrim($site->getLoginDomain(), '/') . '/facebook/callback']);
-            config(['services.facebook.client_id' => $site->getFacebookId()]);
-            config(['services.facebook.client_secret' => $site->getFacebookSecret()]);
-            app()->setLocale($site->getLanguage());
-            if(method_exists(app('translator'), 'setBrandId')) {
-                app('translator')->setBrandId($site->getBrand()->getId());
-            }
-        }
     }
 
     private function prepareView()
