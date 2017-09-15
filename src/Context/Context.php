@@ -33,9 +33,6 @@ class Context
             config(['services.facebook.client_id' => $this->site->getFacebookId()]);
             config(['services.facebook.client_secret' => $this->site->getFacebookSecret()]);
             app()->setLocale($this->site->getLanguage());
-            if(method_exists(app('translator'), 'setBrandId')) {
-                app('translator')->setBrandId($site->getBrand()->getId());
-            }
         }
     }
 
