@@ -4,15 +4,15 @@ namespace Bonnier\ContextService\Middleware;
 
 use Bonnier\ContextService\Context\Context;
 use Bonnier\ContextService\Models\BpSite;
+use Bonnier\ContextService\Helpers\SiteRepository;
 use Illuminate\Http\Request;
 
 class RegisterContext
 {
     public function handle(Request $request, \Closure $next)
     {
-        if (app(Context::class) && app(Context::class)->getSite() && !defined('PHPUNIT_RUNNING')) {
-            /** @var BpSite $site */
-            $site = app(Context::class)->getSite();
+        $site = app(SiteRepository::class)->findByDomain($request->getHost());
+        if ($site && !defined('PHPUNIT_RUNNING')) {
             config(['app.name' => $site->getName()]);
             config(['session.domain' => $site->getLoginDomain()]);
             config(['app.url' => $site->getDomain()]);
