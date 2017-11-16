@@ -168,7 +168,7 @@ class BpSite
     public function getSessionDomain()
     {
         $domain = $this->getLoginDomain() ?? 'bonnier.cloud';
-        return implode('.', array_slice(explode('.', $domain), -2, 2));
+        return '.' . implode('.', array_slice(explode('.', $domain), -2, 2));
     }
 
     /**
