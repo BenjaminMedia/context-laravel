@@ -18,15 +18,15 @@ class Context
      */
     public function __construct(BpSite $site = null)
     {
-        $this->site = $site;
+        $this->setSite($site);
     }
 
     public function setSite(BpSite $site)
     {
         $this->site = $site;
-        if($this->site) {
+        if($this->site && $this->site->getId()) {
             config(['app.name' => $this->site->getName()]);
-            config(['session.domain' => $this->site->getLoginDomain()]);
+            config(['session.domain' => $this->site->getSessionDomain()]);
             config(['app.url' => $this->site->getDomain()]);
             config(['mail.from.name' => $this->site->getBrand()->getName(), 'mail.from.address' => $this->site->getBrand()->getMailFromAddress()]);
             config(['services.facebook.redirect' => ($this->site->isSecure() ? 'https://' : 'http://') . rtrim($this->site->getLoginDomain(), '/') . '/facebook/callback']);
