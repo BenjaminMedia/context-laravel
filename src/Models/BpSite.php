@@ -165,6 +165,15 @@ class BpSite
     /**
      * @return string
      */
+    public function getSessionDomain()
+    {
+        $domain = $this->getLoginDomain() ?? 'bonnier.cloud';
+        return implode('.', array_slice(explode('.', $domain), -2, 2));
+    }
+
+    /**
+     * @return string
+     */
     public function getLanguage()
     {
         return $this->language;
