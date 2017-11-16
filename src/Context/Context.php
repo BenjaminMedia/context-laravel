@@ -18,7 +18,9 @@ class Context
      */
     public function __construct(BpSite $site = null)
     {
-        $this->setSite($site);
+    	if ($site) {
+        	$this->setSite($site);
+        }
     }
 
     public function setSite(BpSite $site)
