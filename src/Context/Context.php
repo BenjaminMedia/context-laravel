@@ -18,15 +18,15 @@ class Context
      */
     public function __construct(BpSite $site = null)
     {
-    	if ($site) {
-        	$this->setSite($site);
+        if ($site) {
+            $this->setSite($site);
         }
     }
 
     public function setSite(BpSite $site)
     {
         $this->site = $site;
-        if($this->site && $this->site->getId()) {
+        if ($this->site && $this->site->getId()) {
             config(['app.name' => $this->site->getName()]);
             config(['session.domain' => $this->site->getSessionDomain()]);
             config(['app.url' => $this->site->getDomain()]);
@@ -40,7 +40,7 @@ class Context
 
     public function getSite()
     {
-    	return $this->site;
+        return $this->site;
     }
 
     /**
@@ -62,8 +62,14 @@ class Context
     /**
      * @return mixed
      */
-    public function getDomain() {
+    public function getDomain()
+    {
         return $this->site ? $this->site->getDomain() : null;
+    }
+
+    public function getLoginDomain()
+    {
+        return $this->site ? $this->site->getLoginDomain() : null;
     }
 
     public function getLanguage()
@@ -71,20 +77,24 @@ class Context
         return $this->site ? $this->site->getLanguage() : null;
     }
 
-    public function getLocale() {
+    public function getLocale()
+    {
         return $this->site ? $this->site->getLocale() : null;
     }
 
-    public function getBrandCode() {
+    public function getBrandCode()
+    {
         return $this->site ? $this->getBrand()->getCode() : null;
     }
 
-    public function getAppCode() {
+    public function getAppCode()
+    {
         return $this->site ? $this->getApp()->getCode() : null;
     }
 
-    public function getDomainUrl() {
-        if($this->getDomain()) {
+    public function getDomainUrl()
+    {
+        if ($this->getDomain()) {
             return $this->addHttpToUrlWhenMissing(
                 $this->getDomain(),
                 $this->site->isSecure()
@@ -94,40 +104,59 @@ class Context
         return null;
     }
 
-    public function getTranslationNamespace()
+    public function getLoginDomainUrl()
     {
-        if($this->getAppCode() && $this->getBrandCode()) {
-            return 'bonnier::'.$this->getAppCode().'/'.$this->getBrandCode().'/messages.';
+        if ($this->getLoginDomain()) {
+            return $this->addHttpToUrlWhenMissing(
+                $this->getLoginDomain(),
+                $this->isOwnContextSecure()
+            );
         }
 
         return null;
     }
 
-    public function getPrimaryColor() {
+    public function getTranslationNamespace()
+    {
+        if ($this->getAppCode() && $this->getBrandCode()) {
+            return 'bonnier::' . $this->getAppCode() . '/' . $this->getBrandCode() . '/messages.';
+        }
+
+        return null;
+    }
+
+    public function getPrimaryColor()
+    {
         return $this->site ? $this->getBrand()->getPrimaryColor() : null;
     }
 
-    public function getSecondaryColor() {
+    public function getSecondaryColor()
+    {
         return $this->site ? $this->getBrand()->getSecondaryColor() : null;
     }
 
-    public function getTertiaryColor() {
+    public function getTertiaryColor()
+    {
         return $this->site ? $this->getBrand()->getTertiaryColor() : null;
     }
 
-    public function getLogo() {
+    public function getLogo()
+    {
         return $this->site ? $this->getBrand()->getLogoUrl() : null;
     }
 
-    public function whiteLogoBackground() {
+    public function whiteLogoBackground()
+    {
         return $this->site ? $this->getBrand()->isLogoBgColorWhite() : null;
     }
 
-    public function usesFacebook() {
+    public function usesFacebook()
+    {
         return $this->site ? $this->site->getFacebookId() && $this->site->getFacebookSecret() : null;
     }
 
-    public function getSignUpPermission() {
+    public function getSignUpPermission()
+    {
         return $this->site ? $this->site->getSignupLeadPermission() : null;
     }
 
@@ -138,10 +167,26 @@ class Context
      * @param $secure
      * @return string
      */
-    private function addHttpToUrlWhenMissing($url, $secure = false) {
-        if  ($ret = parse_url($url)) {
-            if (!isset($ret["scheme"])) { $url = "http" . ($secure ? "s" : "") . "://{$url}"; }
+    private function addHttpToUrlWhenMissing($url, $secure = false)
+    {
+        if ($ret = parse_url($url)) {
+            if (!isset($ret["scheme"])) {
+                $url = "http" . ($secure ? "s" : "") . "://{$url}";
+            }
         }
         return $url;
+    }
+
+    private function isOwnContextSecure()
+    {
+        try {
+            return Request::capture()->isSecure();
+        } catch (Throwable $t) {
+            // Executed only in PHP 7, will not match in PHP 5
+            return false;
+        } catch (Exception $e) {
+            // Executed only in PHP 5, will not be reached in PHP 7
+            return false;
+        }
     }
 }
