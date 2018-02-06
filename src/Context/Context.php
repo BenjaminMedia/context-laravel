@@ -5,6 +5,7 @@ namespace Bonnier\ContextService\Context;
 use Bonnier\ContextService\Models\BpApp;
 use Bonnier\ContextService\Models\BpBrand;
 use Bonnier\ContextService\Models\BpSite;
+use Illuminate\Support\Facades\Request;
 
 class Context
 {
