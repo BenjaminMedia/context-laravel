@@ -50,7 +50,7 @@ class BpBrand
             $this->primaryColor = $brand->primary_color ?? null;
             $this->secondaryColor = $brand->secondary_color ?? null;
             $this->tertiaryColor = $brand->tertiary_color ?? null;
-            $this->logoUrl = $brand->logo_url ?? null;
+            $this->logoUrl = $brand->logo_path ?? $brand->logo_url ?? null;
             $this->logoBgColorWhite = boolval($brand->logo_bg_color_white ?? null);
             $this->issuesPerYear = $brand->issues_per_year ?? 0;
         }
