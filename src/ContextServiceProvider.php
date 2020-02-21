@@ -3,11 +3,13 @@
 namespace Bonnier\ContextService;
 
 use Bonnier\ContextService\Context\Context;
+use Bonnier\ContextService\Helpers\SiteManager\BrandService;
 use Bonnier\ContextService\Helpers\SiteRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use GuzzleHttp\Client;
 
 class ContextServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,13 @@ class ContextServiceProvider extends ServiceProvider
 
         $this->app->singleton(Context::class, function () {
             return $this->context;
+        });
+
+        $this->app->singleton(BrandService::class, function () {
+            $client = new Client([
+                'base_uri' => config('services.site_manager.host')
+            ]);
+            return new BrandService($client);
         });
 
         $this->prepareView();
