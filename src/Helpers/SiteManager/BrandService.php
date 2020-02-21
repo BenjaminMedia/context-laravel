@@ -13,11 +13,9 @@ class BrandService
 {
     protected $client;
 
-    function __construct($baseUri)
+    function __construct(Client $client)
     {
-        $this->client = new Client([
-            'base_uri' => $baseUri
-        ]);
+        $this->client = $client;
     }
 
     public function all() {
